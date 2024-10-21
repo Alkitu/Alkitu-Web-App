@@ -34,3 +34,64 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Docker Deployment
+
+This project supports Docker deployment for both development and production environments.
+
+### Development Mode
+
+To run the application in development mode using Docker:
+
+1. Build the development Docker image:
+   ```bash
+   docker build -f Dockerfile.prod --target development -t alkitu-web-app:dev .
+   ```
+
+2. Run the Docker container:
+   ```bash
+   docker run -p 3000:3000 -v $(pwd):/app alkitu-web-app:dev
+   ```
+
+   This command maps port 3000 and mounts the current directory as a volume for live code updates.
+
+Alternatively, you can use Docker Compose for a more streamlined development experience:
+
+1. Run the following command:
+   ```bash
+   docker-compose up development
+   ```
+
+   This will build the image (if needed) and start the container in development mode.
+
+### Production Mode
+
+To deploy the application in production mode:
+
+1. Build the production Docker image:
+   ```bash
+   docker build -f Dockerfile.prod --target production -t alkitu-web-app:prod .
+   ```
+
+2. Run the Docker container:
+   ```bash
+   docker run -p 3000:3000 -e NODE_ENV=production alkitu-web-app:prod
+   ```
+
+   This command starts the application in production mode.
+
+Using Docker Compose for production:
+
+1. Run the following command:
+   ```bash
+   docker-compose up production
+   ```
+
+   This will build the production image (if needed) and start the container in production mode.
+
+### Additional Notes
+
+- The development setup includes hot-reloading and other development-specific features.
+- The production build is optimized for performance and security.
+- Ensure all necessary environment variables are properly set, especially for production deployments.
+- For production deployments, consider using a reverse proxy like Nginx and implementing proper security measures.

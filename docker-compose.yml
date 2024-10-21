@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  development:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      target: development  # Use the 'development' stage from Dockerfile.prod for development
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    command: npm run dev
+
+  production:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      target: production  # Use the 'production' stage from Dockerfile.prod for production
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
