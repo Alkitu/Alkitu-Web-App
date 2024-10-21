@@ -5,34 +5,36 @@
 trigger:
 - main
 
-pool:
-  vmImage: 'ubuntu-latest'  # Define una única imagen de agente
+resources:
+- repo: self
 
 variables:
+  # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '26f92ee5-dc77-4b9a-8fda-12eac25c74f6'
   imageRepository: 'alkituwebapp'
   containerRegistry: 'alkituwebapp.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
-steps:
-  # Paso 1: Compilar la imagen Docker
-  - task: Docker@2
-    displayName: Build Docker image
-    inputs:
-      command: build
-      repository: $(imageRepository)
-      dockerfile: $(dockerfilePath)
-      containerRegistry: $(dockerRegistryServiceConnection)
-      tags: |
-        $(tag)
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
 
-  # Paso 2: Subir la imagen al registro de contenedores
-  - task: Docker@2
-    displayName: Push Docker image
-    inputs:
-      command: push
-      repository: $(imageRepository)
-      containerRegistry: $(dockerRegistryServiceConnection)
-      tags: |
-        $(tag)
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
