@@ -1,40 +1,30 @@
-# Docker
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+   trigger:
+   - main
 
-trigger:
-- main
+   resources:
+   - repo: self
 
-resources:
-- repo: self
+   variables:
+     # Container registry service connection established during pipeline creation
+     dockerRegistryServiceConnection: '26f92ee5-dc77-4b9a-8fda-12eac25c74f6'
+     imageRepository: 'alkituwebapp'
+     containerRegistry: 'alkituwebapp.azurecr.io'
+     dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+     tag: '$(Build.BuildId)'
 
-variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '26f92ee5-dc77-4b9a-8fda-12eac25c74f6'
-  imageRepository: 'alkituwebapp'
-  containerRegistry: 'alkituwebapp.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+     # Agent VM image name
+     vmImageName: 'ubuntu-latest'
 
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+   pool:
+     name: 'Default'  # Replace 'Default' with the name of your self-hosted agent pool
 
-stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
-
+   steps:
+   - task: Docker@2
+     inputs:
+       containerRegistry: '$(dockerRegistryServiceConnection)'
+       repository: '$(imageRepository)'
+       command: 'buildAndPush'
+       Dockerfile: '$(dockerfilePath)'
+       tags: |
+         $(tag)
+   
