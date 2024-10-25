@@ -16,7 +16,7 @@
      vmImageName: 'ubuntu-latest'
 
    pool:
-     name: 'Default'  # Replace 'Default' with the name of your self-hosted agent pool
+     name: 'Azure Pipelines'  # Replace 'Azure Pipelines' with the name of your Azure Pipelines agent pool
 
    steps:
    - task: Docker@2
