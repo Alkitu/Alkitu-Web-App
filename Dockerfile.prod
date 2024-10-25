@@ -4,13 +4,16 @@ FROM node:20-alpine AS development
 WORKDIR /app
 
 COPY package*.json ./
+COPY prisma ./prisma
+
+# Add this line to ensure the Prisma schema is in the correct location
+RUN mkdir -p prisma/schema && mv -f prisma/schema.prisma prisma/schema/schema.prisma || true
 
 RUN npm ci
 
 COPY . .doc
 
 EXPOSE 3000
-
 
 CMD ["npm", "run", "dev"]
 
