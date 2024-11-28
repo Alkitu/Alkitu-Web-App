@@ -1,3 +1,4 @@
+"use client";
 import { UserProfile } from "@/components/users/user-profile";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
