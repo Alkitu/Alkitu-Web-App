@@ -42,8 +42,8 @@ export function UserList({ users: initialUsers }: UserListProps) {
   const filteredUsers = React.useMemo(() => {
     return users.filter(user => {
       const matchesSearch = search === "" || 
-        user.name.toLowerCase().includes(search.toLowerCase()) ||
-        user.email.toLowerCase().includes(search.toLowerCase()) ||
+        (user.name?.toLowerCase().includes(search.toLowerCase()) ?? false) ||
+        (user.email?.toLowerCase().includes(search.toLowerCase()) ?? false) ||
         user.username.toLowerCase().includes(search.toLowerCase())
 
       const matchesRole = roleFilter === "ALL" || user.role === roleFilter
