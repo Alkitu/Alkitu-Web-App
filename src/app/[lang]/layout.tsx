@@ -7,6 +7,7 @@ import TailwindGrid from "@/components/shared/TailwindGrid";
 import { cn, inter } from "@/lib/utils";
 import { LanguageSwitchButton } from "@/components/shared/LanguageSwitchButton";
 import ThemeToggle from "@/components/shared/ThemeToggle";
+import { Toaster } from "sonner";
 
 export default async function RootLayout({
   children,
@@ -31,7 +32,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <TailwindGrid  show bgColor="yellow" padding="">
+            <TailwindGrid bgColor="yellow" padding="">
               <header className="flex justify-end gap-4 px-8 bg-slate-900 items-center w-full py-1 col-span-full">
                 <LanguageSwitchButton />
                 <ThemeToggle />
@@ -40,6 +41,7 @@ export default async function RootLayout({
                 {children}
               </main>
             </TailwindGrid>
+            <Toaster />
           </ThemeProvider>
         </TranslationsProvider>
       </body>

@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -74,18 +74,5 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-  safelist: [
-    { pattern: /^gap-x-/ },
-    { pattern: /^gap-y-/ },
-    { pattern: /^md:gap-x-/ },
-    { pattern: /^md:gap-y-/ },
-    { pattern: /^lg:gap-x-/ },
-    { pattern: /^lg:gap-y-/ },
-    'bg-red-200/20',
-    'bg-blue-200/20',
-    'bg-yellow-200/20',
-    'bg-orange-200/20',
-    'bg-purple-200/20',
-    'bg-green-200/20',
-  ],
+  safelist: [],
 };

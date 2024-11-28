@@ -1,30 +1,29 @@
-   trigger:
-   - main
+trigger:
+  - main
 
-   resources:
-   - repo: self
+resources:
+  - repo: self
 
-   variables:
-     # Container registry service connection established during pipeline creation
-     dockerRegistryServiceConnection: '26f92ee5-dc77-4b9a-8fda-12eac25c74f6'
-     imageRepository: 'alkituwebapp'
-     containerRegistry: 'alkituwebapp.azurecr.io'
-     dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-     tag: '$(Build.BuildId)'
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: "26f92ee5-dc77-4b9a-8fda-12eac25c74f6"
+  imageRepository: "alkituwebapp"
+  containerRegistry: "alkituwebapp.azurecr.io"
+  dockerfilePath: "$(Build.SourcesDirectory)/Dockerfile"
+  tag: "$(Build.BuildId)"
 
-     # Agent VM image name
-     vmImageName: 'ubuntu-latest'
+  # Agent VM image name
+  vmImageName: "ubuntu-latest"
 
-   pool:
-     name: 'Azure Pipelines'  # Replace 'Azure Pipelines' with the name of your Azure Pipelines agent pool
+pool:
+  name: "Azure Pipelines" # Replace 'Azure Pipelines' with the name of your Azure Pipelines agent pool
 
-   steps:
-   - task: Docker@2
-     inputs:
-       containerRegistry: '$(dockerRegistryServiceConnection)'
-       repository: '$(imageRepository)'
-       command: 'buildAndPush'
-       Dockerfile: '$(dockerfilePath)'
-       tags: |
-         $(tag)
-   
+steps:
+  - task: Docker@2
+    inputs:
+      containerRegistry: "$(dockerRegistryServiceConnection)"
+      repository: "$(imageRepository)"
+      command: "buildAndPush"
+      Dockerfile: "$(dockerfilePath)"
+      tags: |
+        $(tag)

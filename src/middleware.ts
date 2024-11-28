@@ -1,10 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
+import authConfig from "./auth.config";
+import NextAuth from "next-auth";
+
+// Use only one of the two middleware options below
+// 1. Use middleware directly
+// export const { auth: middleware } = NextAuth(authConfig)
+
+// 2. Wrapped middleware option
+const { auth } = NextAuth(authConfig);
 
 const DEFAULT_LOCALE = "es";
 const SUPPORTED_LOCALES = ["es", "en"];
 const COOKIE_NAME = "NEXT_LOCALE";
 
-export async function middleware(req: NextRequest) {
+export default auth(async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   let currentLocale = req.cookies.get(COOKIE_NAME)?.value || DEFAULT_LOCALE;
 
@@ -21,7 +30,9 @@ export async function middleware(req: NextRequest) {
 
   // Handle root path
   if (pathname === "/") {
-    response = NextResponse.redirect(new URL(`/${currentLocale}`, req.url));
+    const url = new URL(`/${currentLocale}`, req.url);
+    url.search = req.nextUrl.search;
+    response = NextResponse.redirect(url);
   }
   // Handle paths with supported locale prefix
   else if (pathLocale) {
@@ -30,8 +41,9 @@ export async function middleware(req: NextRequest) {
   }
   // Handle paths without locale prefix
   else if (!pathLocale && pathname !== "/") {
-    const newPathname = `/${currentLocale}${pathname}`;
-    response = NextResponse.redirect(new URL(newPathname, req.url));
+    const url = new URL(`/${currentLocale}${pathname}`, req.url);
+    url.search = req.nextUrl.search;
+    response = NextResponse.redirect(url);
   }
   // For all other cases, proceed with the request
   else {
@@ -48,7 +60,7 @@ export async function middleware(req: NextRequest) {
   console.log("Setting cookie:", COOKIE_NAME, "to value:", currentLocale);
 
   return response;
-}
+});
 
 function getLocaleFromPath(pathname: string): string | null {
   const firstSegment = pathname.split("/")[1];

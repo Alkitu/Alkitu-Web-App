@@ -16,9 +16,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
-      target: production  # Use the 'production' stage from Dockerfile.prod for production
+      target: production
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      - AUTH_SECRET=${AUTH_SECRET}
+      - NEXTAUTH_URL="http://localhost:3000"
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
     restart: unless-stopped
