@@ -1,4 +1,3 @@
-"use client";
 import { validateVerificationToken } from "@/lib/services/token-service";
 import {
   Card,
@@ -11,13 +10,23 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Mail, CheckCircle2 } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 
-export default async function Page() {
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
-  const email = searchParams.get("email");
-  const success = searchParams.get("success");
+type Params = Promise<{ lang: string }>;
+type SearchParams = Promise<{
+  token?: string;
+  email?: string;
+  success?: string;
+}>;
+
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: Params;
+  searchParams: SearchParams;
+}) {
+  await params;
+  const { token, email, success } = await searchParams;
 
   if (success === "true") {
     return (
