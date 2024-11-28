@@ -1,10 +1,10 @@
-import { UserProfile } from "@/components/users/user-profile"
-import { Separator } from "@/components/ui/separator"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
-import { notFound } from "next/navigation"
-import { getUserById } from "@/lib/data/auth"
+import { UserProfile } from "@/components/users/user-profile";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { notFound } from "next/navigation";
+import { getUserById } from "@/lib/data/auth";
 
 interface UserPageProps {
   params: {
@@ -14,8 +14,8 @@ interface UserPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function UserPage({ params }: UserPageProps) {
-  const user = await getUserById(params.id);
+export default async function UserPage({ params: routeParams }: UserPageProps) {
+  const user = await getUserById(routeParams.id);
 
   if (!user) {
     notFound();
@@ -33,11 +33,13 @@ export default async function UserPage({ params }: UserPageProps) {
         </Link>
       </div>
       <Separator className="my-4" />
-      <UserProfile user={{
-        ...user,
-        email: user.email ?? '',
-        name: user.name ?? ''
-      }} />
+      <UserProfile
+        user={{
+          ...user,
+          email: user.email ?? "",
+          name: user.name ?? "",
+        }}
+      />
     </div>
-  )
-} 
+  );
+}
