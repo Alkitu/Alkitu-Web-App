@@ -7,18 +7,14 @@ import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getUserById } from "@/lib/data/auth";
 
-interface UserPageParams {
-  id: string;
-  lang: string;
-}
-
 interface UserPageProps {
-  params: UserPageParams; // Make sure params is a normal object
+  params: Promise<{ id: string; lang: string }>; // Make params a Promise
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default async function UserPage({ params }: UserPageProps) {
-  const user = await getUserById(params.id);
+  const { id, lang } = await params; // Resolve params with async/await
+  const user = await getUserById(id);
 
   if (!user) {
     notFound();
