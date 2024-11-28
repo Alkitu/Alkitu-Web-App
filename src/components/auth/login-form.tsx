@@ -48,7 +48,7 @@ export function LoginForm() {
         const result = await signIn("credentials", {
           email: data.email,
           password: data.password,
-          redirect: false,
+          callbackUrl: DEFAULT_LOGIN_REDIRECT,
         });
 
         if (result?.error) {
