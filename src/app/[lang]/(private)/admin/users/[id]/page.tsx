@@ -8,14 +8,13 @@ import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getUserById } from "@/lib/data/auth";
 
-interface UserPageProps {
-  params: Promise<{ id: string; lang: string }>; // `params` es un `Promise`
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
-export default async function UserPage({ params }: UserPageProps) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   // Resolvemos `params` con `await`
-  const { id, lang } = await params; 
+  const { id } = await params;
 
   const user = await getUserById(id);
 
@@ -35,11 +34,13 @@ export default async function UserPage({ params }: UserPageProps) {
         </Link>
       </div>
       <Separator className="my-4" />
-      <UserProfile user={{
-        ...user,
-        email: user.email ?? '',
-        name: user.name ?? ''
-      }} />
+      <UserProfile
+        user={{
+          ...user,
+          email: user.email ?? "",
+          name: user.name ?? "",
+        }}
+      />
     </div>
   );
 }
