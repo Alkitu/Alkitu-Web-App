@@ -8,8 +8,10 @@ import { getUserById } from "@/lib/data/auth"
 
 interface UserPageProps {
   params: {
-    id: string
-  }
+    id: string;
+    lang: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default async function UserPage({ params }: UserPageProps) {
@@ -31,7 +33,11 @@ export default async function UserPage({ params }: UserPageProps) {
         </Link>
       </div>
       <Separator className="my-4" />
-      <UserProfile user={user} />
+      <UserProfile user={{
+        ...user,
+        email: user.email ?? '',
+        name: user.name ?? ''
+      }} />
     </div>
   )
 } 
