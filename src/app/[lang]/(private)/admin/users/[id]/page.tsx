@@ -15,10 +15,10 @@ interface UserPageProps {
 }
 
 export default async function UserPage({ params }: UserPageProps) {
-  const user = await getUserById(params.id)
+  const user = await getUserById(params.id);
 
   if (!user) {
-    notFound()
+    notFound();
   }
 
   return (
