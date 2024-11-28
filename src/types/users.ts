@@ -1,11 +1,11 @@
-export type UserRole = "ADMIN" | "EMPLOYEE" | "CLIENT"; // Ensure CLIENT is included
+export type UserRole = "ADMIN" | "EMPLOYEE" | "CLIENT";
 
 export type User = {
   id: string;
-  username: string;  // Nombre de usuario para login
-  email: string;
-  name: string;      // Nombre completo
-  lastName: string;  // Apellidos
+  username: string;
+  email: string | null;
+  name: string | null;
+  lastName: string;
   role: UserRole;
   createdAt: Date;
   updatedAt: Date;
