@@ -1,4 +1,3 @@
-"use client";
 import { UserProfile } from "@/components/users/user-profile";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -7,16 +6,18 @@ import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getUserById } from "@/lib/data/auth";
 
+interface UserPageParams {
+  id: string;
+  lang: string;
+}
+
 interface UserPageProps {
-  params: {
-    id: string;
-    lang: string;
-  };
+  params: UserPageParams; // Make sure params is a normal object
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function UserPage({ params: routeParams }: UserPageProps) {
-  const user = await getUserById(routeParams.id);
+export default async function UserPage({ params }: UserPageProps) {
+  const user = await getUserById(params.id);
 
   if (!user) {
     notFound();
@@ -35,11 +36,7 @@ export default async function UserPage({ params: routeParams }: UserPageProps) {
       </div>
       <Separator className="my-4" />
       <UserProfile
-        user={{
-          ...user,
-          email: user.email ?? "",
-          name: user.name ?? "",
-        }}
+        user={{ ...user, email: user.email ?? "", name: user.name ?? "" }}
       />
     </div>
   );
