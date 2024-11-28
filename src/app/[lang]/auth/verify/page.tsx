@@ -5,18 +5,20 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 import { Mail, CheckCircle2 } from "lucide-react"
 
-interface VerifyPageProps {
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ lang: string }>;
   searchParams: {
-    token?: string
-    email?: string
-    success?: string
-  }
-}
+    token?: string;
+    email?: string;
+    success?: string;
+  };
+}) {
+  await params;
+  const { token, email, success } = searchParams;
 
-export default async function VerifyPage({ searchParams }: VerifyPageProps) {
-  const { token, email, success } = searchParams
-
-  // Si hay éxito, mostrar mensaje de verificación exitosa
   if (success === "true") {
     return (
       <div className="container flex h-screen w-screen flex-col items-center justify-center">
@@ -42,7 +44,6 @@ export default async function VerifyPage({ searchParams }: VerifyPageProps) {
     )
   }
 
-  // Si no hay token, mostrar página de espera
   if (!token) {
     return (
       <div className="container flex h-screen w-screen flex-col items-center justify-center">
@@ -74,8 +75,7 @@ export default async function VerifyPage({ searchParams }: VerifyPageProps) {
     )
   }
 
-  // Si hay token, validar
-  const result = await validateVerificationToken(token)
+  const result = await validateVerificationToken(token);
 
   if ("error" in result) {
     return (
