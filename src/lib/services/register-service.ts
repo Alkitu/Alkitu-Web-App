@@ -5,6 +5,7 @@ import { generateVerificationToken } from "./token-service";
 import { RegisterSchema } from "@/lib/schemas/auth";
 import { Role } from "@prisma/client";
 import { Resend } from "resend";
+import { Link } from "react-router-dom";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

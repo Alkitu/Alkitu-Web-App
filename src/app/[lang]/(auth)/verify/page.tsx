@@ -108,7 +108,7 @@ export default async function Page({
     );
   }
 
-  redirect(`/verify?success=true`);
+  redirect(`${process.env.NEXT_PUBLIC_APP_URL}/auth/verify?success=true`);
 }
 
 interface VerifyErrorProps {

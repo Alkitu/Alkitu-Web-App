@@ -13,10 +13,10 @@ import { redirect } from "next/navigation";
 
 export default async function SettingsPage() {
   const session = await auth();
-  if (!session?.user?.id) redirect("/login");
+  if (!session?.user?.id) redirect(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
 
   const user = await getUserById(session.user.id);
-  if (!user) redirect("/login");
+  if (!user) redirect(`${process.env.NEXT_PUBLIC_APP_URL}/login`);
 
   return (
     <div className="h-full p-4 space-y-2">

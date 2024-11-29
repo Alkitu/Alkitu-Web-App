@@ -60,7 +60,7 @@ export function LoginForm() {
         } else {
           // Inicio de sesión exitoso
           toast.success("Inicio de sesión exitoso");
-          window.location.href = callbackUrl;
+          window.location.href = `${process.env.NEXT_PUBLIC_APP_URL}/${callbackUrl}`;
         }
       } catch (error) {
         toast.error("Ocurrió un error al iniciar sesión");

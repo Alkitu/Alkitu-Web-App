@@ -38,7 +38,7 @@ export default function ErrorPage() {
       <div className="text-center space-y-6">
         <h1 className="text-4xl font-bold tracking-tight">{error.title}</h1>
         <p className="text-lg text-muted-foreground">{error.description}</p>
-        <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/login`}>
+        <Link href="/auth/login">
           <Button>Volver al inicio de sesión</Button>
         </Link>
       </div>

@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { toast } from "sonner"
-import { Button } from "@/components/ui/button"
+import * as React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -13,34 +13,34 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
-import { Loader2 } from "lucide-react"
-import { useRouter } from "next/navigation"
-import { NewUserSchema } from "@/lib/schemas/user"
-import { Role } from "@prisma/client"
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { NewUserSchema } from "@/lib/schemas/user";
+import { Role } from "@prisma/client";
 
 interface NewUserFormData {
-  email: string
-  password: string
-  name: string
-  lastName: string
-  username: string
-  role: Role
-  isTwoFactorEnabled: boolean
+  email: string;
+  password: string;
+  name: string;
+  lastName: string;
+  username: string;
+  role: Role;
+  isTwoFactorEnabled: boolean;
 }
 
 export function NewUserForm() {
-  const router = useRouter()
-  const [isPending, startTransition] = React.useTransition()
+  const router = useRouter();
+  const [isPending, startTransition] = React.useTransition();
 
   const form = useForm<NewUserFormData>({
     resolver: zodResolver(NewUserSchema),
@@ -51,32 +51,31 @@ export function NewUserForm() {
       lastName: "",
       username: "",
       role: "CLIENT",
-      isTwoFactorEnabled: false
+      isTwoFactorEnabled: false,
     },
-  })
+  });
 
   function onSubmit(data: NewUserFormData) {
     startTransition(async () => {
       try {
-        const response = await fetch('/api/users', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        })
+        const response = await fetch("/api/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
 
-        const result = await response.json()
+        const result = await response.json();
 
         if (result.success) {
-          toast.success("Usuario creado exitosamente")
-          router.push("/home")
-          router.refresh()
+          toast.success("Usuario creado exitosamente");
+          window.location.href = `${process.env.NEXT_PUBLIC_APP_URL}/home`;
         } else {
-          toast.error(result.error || "Error al crear usuario")
+          toast.error(result.error || "Error al crear usuario");
         }
       } catch (error) {
-        toast.error("Error al procesar la solicitud")
+        toast.error("Error al procesar la solicitud");
       }
-    })
+    });
   }
 
   return (
@@ -119,7 +118,12 @@ export function NewUserForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} type="email" placeholder="usuario@inside.com" disabled={isPending} />
+                  <Input
+                    {...field}
+                    type="email"
+                    placeholder="usuario@inside.com"
+                    disabled={isPending}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -132,7 +136,11 @@ export function NewUserForm() {
               <FormItem>
                 <FormLabel>Nombre de usuario</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="usuario123" disabled={isPending} />
+                  <Input
+                    {...field}
+                    placeholder="usuario123"
+                    disabled={isPending}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -148,7 +156,12 @@ export function NewUserForm() {
               <FormItem>
                 <FormLabel>Contraseña</FormLabel>
                 <FormControl>
-                  <Input {...field} type="password" placeholder="••••••••" disabled={isPending} />
+                  <Input
+                    {...field}
+                    type="password"
+                    placeholder="••••••••"
+                    disabled={isPending}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -160,9 +173,9 @@ export function NewUserForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Rol</FormLabel>
-                <Select 
-                  disabled={isPending} 
-                  onValueChange={field.onChange} 
+                <Select
+                  disabled={isPending}
+                  onValueChange={field.onChange}
                   defaultValue={field.value}
                 >
                   <FormControl>
@@ -188,9 +201,12 @@ export function NewUserForm() {
           render={({ field }) => (
             <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
-                <FormLabel className="text-base">Autenticación de dos factores</FormLabel>
+                <FormLabel className="text-base">
+                  Autenticación de dos factores
+                </FormLabel>
                 <FormDescription>
-                  Habilitar verificación adicional de seguridad al iniciar sesión
+                  Habilitar verificación adicional de seguridad al iniciar
+                  sesión
                 </FormDescription>
               </div>
               <FormControl>
@@ -205,12 +221,10 @@ export function NewUserForm() {
         />
 
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          ) : null}
+          {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           Crear Usuario
         </Button>
       </form>
     </Form>
-  )
-} 
+  );
+}
