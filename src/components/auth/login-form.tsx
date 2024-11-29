@@ -72,7 +72,7 @@ export function LoginForm() {
     startTransition(async () => {
       try {
         await signIn(provider, {
-          callbackUrl: DEFAULT_LOGIN_REDIRECT,
+          callbackUrl: `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/callback/${provider}`,
         });
       } catch (error) {
         toast.error("Ocurrió un error con el inicio de sesión social");

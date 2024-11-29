@@ -62,8 +62,8 @@ Este proyecto implementa un sistema de autenticación robusto y seguro basado en
    EMAIL_FROM=noreply@insidehair.es
    ADMIN_EMAIL=patricia@insidesalons.com
    NODE_ENV=development
-   NEXT_PUBLIC_APP_URL=http://localhost:3001
-   NEXT_PUBLIC_API_URL=http://localhost:3001/api
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   NEXT_PUBLIC_API_URL=http://localhost:3000/api
    ```
 
 4. **Configura Prisma:**

@@ -2,7 +2,7 @@
 import TailwindGrid from "@/components/shared/TailwindGrid";
 import { useTranslations } from "@/context/TranslationContext";
 
-export default function ExampleComponent() {
+export default function HomePage() {
   const t = useTranslations("Home");
   const m = useTranslations("Common");
 
