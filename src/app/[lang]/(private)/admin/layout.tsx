@@ -7,7 +7,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const session = await auth();
-  const baseErrorUrl = "/auth/error";
+  const baseErrorUrl = "/error";
 
   if (!session) {
     const url = new URL(baseErrorUrl, process.env.NEXT_PUBLIC_APP_URL);

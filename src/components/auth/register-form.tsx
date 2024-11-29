@@ -54,7 +54,7 @@ export function RegisterForm() {
 
         if (result.success) {
           toast.success("Registro exitoso. Por favor, verifica tu email.");
-          router.push("/auth/verify");
+          router.push("/verify");
         } else {
           toast.error(result.error || "Algo salió mal");
         }

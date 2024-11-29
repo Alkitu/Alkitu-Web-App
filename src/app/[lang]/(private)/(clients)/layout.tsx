@@ -9,7 +9,7 @@ export default async function ClientsLayout({
   const session = await auth();
 
   if (!session) {
-    redirect("/auth/login");
+    redirect("/login");
   }
 
   return <>{children}</>;

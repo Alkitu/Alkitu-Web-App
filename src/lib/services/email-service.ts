@@ -68,7 +68,7 @@ const baseEmailTemplate = (content: string) => `
 `;
 
 export async function sendVerificationEmail(email: string, token: string) {
-  const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/verify?token=${token}`;
+  const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify?token=${token}`;
   const username = email.split("@")[0];
 
   const content = `

@@ -1,31 +1,31 @@
-"use client"
+"use client";
 
-import { MainNav } from "@/components/layout/main-nav"
-import { 
-  Sidebar, 
-  SidebarContent, 
-  SidebarHeader, 
+import { MainNav } from "@/components/layout/main-nav";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
   SidebarFooter,
   SidebarMenu,
   SidebarMenuItem,
-  SidebarMenuButton
-} from "@/components/ui/sidebar"
-import { ChevronDown, ChevronUp, User2 } from "lucide-react"
+  SidebarMenuButton,
+} from "@/components/ui/sidebar";
+import { ChevronDown, ChevronUp, User2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { signOut } from "next-auth/react"
-import { useRouter } from "next/navigation"
+} from "@/components/ui/dropdown-menu";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export function AppSidebar() {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSignOut = async () => {
-    await signOut({ redirect: true, callbackUrl: "/auth/login" })
-  }
+    await signOut({ redirect: true, callbackUrl: "/login" });
+  };
 
   return (
     <Sidebar collapsible="icon">
@@ -70,14 +70,18 @@ export function AppSidebar() {
                   <ChevronUp className="ml-auto h-4 w-4" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
-              <DropdownMenuContent 
-                side="top" 
+              <DropdownMenuContent
+                side="top"
                 className="w-[--radix-dropdown-menu-trigger-width]"
               >
-                <DropdownMenuItem onClick={() => router.push("/dashboard/profile")}>
+                <DropdownMenuItem
+                  onClick={() => router.push("/dashboard/profile")}
+                >
                   <span>Mi Perfil</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push("/dashboard/settings")}>
+                <DropdownMenuItem
+                  onClick={() => router.push("/dashboard/settings")}
+                >
                   <span>Configuración</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleSignOut}>
@@ -89,5 +93,5 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
-  )
-} 
+  );
+}

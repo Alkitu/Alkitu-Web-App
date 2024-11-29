@@ -138,10 +138,10 @@ src/
 
 - **Rutas Públicas:**
 
-  - `/auth/login` - Inicio de sesión.
-  - `/auth/register` - Registro de nuevos usuarios.
-  - `/auth/verify` - Verificación de correo electrónico.
-  - `/auth/error` - Página de errores.
+  - `/login` - Inicio de sesión.
+  - `/register` - Registro de nuevos usuarios.
+  - `/verify` - Verificación de correo electrónico.
+  - `/error` - Página de errores.
 
 - **Rutas Privadas:**
   - `/private/admin` - Panel de administración (ADMIN y EMPLOYEE).

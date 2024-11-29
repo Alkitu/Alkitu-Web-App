@@ -52,7 +52,7 @@ export async function register(data: {
     const verificationToken = await generateVerificationToken(email);
 
     // Construir URL de verificación
-    const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/verify?token=${verificationToken.token}`;
+    const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/verify?token=${verificationToken.token}`;
 
     // Enviar email de verificación
     try {
@@ -109,7 +109,7 @@ export async function register(data: {
     return {
       success: true,
       user,
-      redirect: `/auth/verify?email=${encodeURIComponent(email)}`,
+      redirect: `/verify?email=${encodeURIComponent(email)}`,
     };
   } catch (error) {
     console.error("Error in register service:", error);

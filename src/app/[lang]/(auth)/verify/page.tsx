@@ -42,7 +42,7 @@ export default async function Page({
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
-            <Link href="/auth/login">
+            <Link href="/login">
               <Button className="w-full">Iniciar sesión</Button>
             </Link>
           </CardContent>
@@ -77,7 +77,7 @@ export default async function Page({
               </p>
             </div>
             <div className="flex flex-col gap-2">
-              <Link href="/auth/login">
+              <Link href="/login">
                 <Button variant="outline" className="w-full">
                   Volver al inicio de sesión
                 </Button>
@@ -108,7 +108,7 @@ export default async function Page({
     );
   }
 
-  redirect(`/auth/verify?success=true`);
+  redirect(`/verify?success=true`);
 }
 
 interface VerifyErrorProps {
@@ -125,10 +125,10 @@ function VerifyError({ title, message }: VerifyErrorProps) {
           <CardDescription>{message}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
-          <Link href="/auth/login">
+          <Link href="/login">
             <Button className="w-full">Volver al inicio de sesión</Button>
           </Link>
-          <Link href="/auth/register">
+          <Link href="/register">
             <Button variant="outline" className="w-full">
               Crear nueva cuenta
             </Button>

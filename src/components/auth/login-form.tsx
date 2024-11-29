@@ -190,7 +190,7 @@ export function LoginForm() {
 
       <div className="text-center text-sm">
         <Link
-          href="/auth/reset-password"
+          href="/reset-password"
           className="text-muted-foreground hover:text-primary underline underline-offset-4"
         >
           ¿Olvidaste tu contraseña?
